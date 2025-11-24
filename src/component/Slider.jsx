@@ -24,13 +24,25 @@ const Slider = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <img src={i1} className="w-full h-[600px] object-cover" alt="" />
+          <img
+            src={i1}
+            className="w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover"
+            alt=""
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={i2} className="w-full h-[600px] object-cover" alt="" />
+          <img
+            src={i2}
+            className="w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover"
+            alt=""
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={i3} className="w-full h-[600px] object-cover" alt="" />
+          <img
+            src={i3}
+            className="w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover"
+            alt=""
+          />
         </SwiperSlide>
       </Swiper>
     </div>

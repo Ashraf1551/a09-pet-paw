@@ -11,13 +11,13 @@ const Services = () => {
   }, []);
 
   return (
-    <div className="px-[130px]">
-      <div className="mt-12 grid grid-cols-3">
+    <div className="px-4 sm:px-6 md:px-8 lg:px-[130px]">
+      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (
-          <div className="card bg-base-100 w-96 shadow-sm">
+          <div className="card bg-base-100 w-full sm:w-80 lg:w-96 shadow-sm">
             <figure>
               <img
-                className="w-full h-[300px] object-cover"
+                className="w-full h-[200px] sm:h-[250px] md:h-[300px] object-cover"
                 src={service?.image}
                 alt="Shoes"
               />

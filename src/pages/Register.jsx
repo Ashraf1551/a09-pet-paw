@@ -17,7 +17,7 @@ const Register = () => {
     const photoUrl = e.target.photoUrl.value;
 
     const uppercase = /[A-Z]/;
-    const lowercase = /[a-z]`/;
+    const lowercase = /[a-z]/;
 
     if (pass.length < 6) {
       return alert("less than 6 characters");

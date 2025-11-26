@@ -3,9 +3,11 @@ import { Link } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
-  const { registerwithEmailPassword, setUser, user } = useContext(AuthContext);
+  const { registerwithEmailPassword, setUser, handleGoogleSignin } =
+    useContext(AuthContext);
 
   const handleSubit = (e) => {
     e.preventDefault();
@@ -13,6 +15,19 @@ const Register = () => {
     const pass = e.target.password.value;
     const name = e.target.name.value;
     const photoUrl = e.target.photoUrl.value;
+
+    const uppercase = /[A-Z]/;
+    const lowercase = /a-z/;
+
+    if (pass.length < 6) {
+      return alert("less than 6 characters");
+    }
+    if (!uppercase.test(pass)) {
+      return alert("need a uppecase");
+    }
+    if (!lowercase.test(pass)) {
+      return alert("need a lowercase");
+    }
 
     registerwithEmailPassword(email, pass)
       .then((userCredential) => {
@@ -32,7 +47,14 @@ const Register = () => {
       });
   };
 
-  console.log(user);
+  const googleSignup = () => {
+    handleGoogleSignin()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -69,6 +91,9 @@ const Register = () => {
                   className="input"
                   placeholder="Password"
                 />
+                <button onClick={googleSignup} className="btn">
+                  <FcGoogle />
+                </button>
                 <div>
                   <a className="link link-hover">Forgot password?</a>
                 </div>

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
+import { motion } from "motion/react";
 
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -11,7 +13,14 @@ const Services = () => {
   }, []);
 
   return (
-    <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 py-6 sm:py-8">
+    <motion.div
+      initial={{ scale: 0 }}
+      animate={{
+        scale: 1,
+        transition: { duration: 2 },
+      }}
+      className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 py-6 sm:py-8"
+    >
       <div className="max-w-7xl mx-auto">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
           Our Services
@@ -38,16 +47,18 @@ const Services = () => {
                   <p>Rating: {service?.rating}</p>
                 </div>
                 <div className="card-actions justify-end mt-2">
-                  <button className="btn btn-primary btn-sm sm:btn-md">
-                    View Details
-                  </button>
+                  <Link to={`/details/${service?.serviceId}`}>
+                    <button className="btn btn-primary btn-sm sm:btn-md">
+                      View Details
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

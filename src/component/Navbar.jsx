@@ -61,15 +61,15 @@ const Navbar = () => {
           </li>
 
           <li>
-            <Link>My Profile</Link>
+            <Link to={"/profile"}>My Profile</Link>
           </li>
         </ul>
       </div>
       {user && (
         <div className="navbar-end">
-          <btn onClick={handleSignOut} className="btn">
+          <button onClick={handleSignOut} className="btn">
             Logout
-          </btn>
+          </button>
         </div>
       )}
       {!user && (

@@ -4,11 +4,17 @@ import Home from "../pages/Home";
 import Services from "../pages/Services";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Profile from "../pages/Profile";
+import PrivateRoute from "./PrivateRoute";
+import ServiceDetails from "../pages/ServiceDetails";
+import ForgetPass from "../pages/ForgetPass";
+import Error from "../pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
@@ -25,6 +31,26 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Register></Register>,
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/details/:id",
+        element: (
+          <PrivateRoute>
+            <ServiceDetails></ServiceDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/forget/:email",
+        element: <ForgetPass></ForgetPass>,
       },
     ],
   },

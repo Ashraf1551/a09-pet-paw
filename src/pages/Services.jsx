@@ -11,29 +11,41 @@ const Services = () => {
   }, []);
 
   return (
-    <div className="px-4 sm:px-6 md:px-8 lg:px-[130px]">
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service) => (
-          <div className="card bg-base-100 w-full sm:w-80 lg:w-96 shadow-sm">
-            <figure>
-              <img
-                className="w-full h-[200px] sm:h-[250px] md:h-[300px] object-cover"
-                src={service?.image}
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">{service?.serviceName}</h2>
-              <div className="flex justify-between">
-                <p>Price: {service?.price}</p>
-                <p>Rating: {service?.rating}</p>
-              </div>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">Buy Now</button>
+    <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 py-6 sm:py-8">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
+          Our Services
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+          {services.map((service, index) => (
+            <div
+              key={index}
+              className="card bg-base-100 w-full shadow-sm hover:shadow-lg transition-shadow"
+            >
+              <figure>
+                <img
+                  className="w-full h-[200px] sm:h-[220px] md:h-[250px] lg:h-[280px] xl:h-[300px] object-cover"
+                  src={service?.image}
+                  alt={service?.serviceName}
+                />
+              </figure>
+              <div className="card-body p-4 sm:p-5 md:p-6">
+                <h2 className="card-title text-base sm:text-lg md:text-xl">
+                  {service?.serviceName}
+                </h2>
+                <div className="flex justify-between text-sm sm:text-base">
+                  <p>Price: {service?.price}</p>
+                  <p>Rating: {service?.rating}</p>
+                </div>
+                <div className="card-actions justify-end mt-2">
+                  <button className="btn btn-primary btn-sm sm:btn-md">
+                    View Details
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

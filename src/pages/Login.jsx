@@ -12,9 +12,13 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubit = (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
     const email = e.target.email.value;
     const pass = e.target.password.value;
 
@@ -25,63 +29,136 @@ const Login = () => {
         navigate(location.state ? location.state : "/");
       })
       .catch((error) => {
+        setError("Invalid email or password. Please try again.");
         console.log(error);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const googleSignin = () => {
+    setError("");
     handleGoogleSignin()
       .then((result) => {
         const user = result.user;
         setUser(user);
-        navigate(location.state);
+        navigate(location.state ? location.state : "/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setError("Google sign-in failed. Please try again.");
+        console.log(err);
+      });
   };
 
-  const handleForget = () => {
+  const handleForget = (e) => {
+    e.preventDefault();
     navigate(`/forget/${email}`);
   };
 
   return (
-    <div>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <div className="card-body">
-              <form onSubmit={handleSubit} className="fieldset">
-                <label className="label">Email</label>
+    <div className="min-h-screen bg-gradient-to-br from-base-200 via-base-100 to-base-200 flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-4">
+            <span className="text-3xl">🐾</span>
+          </div>
+          <h1 className="text-3xl font-bold text-base-content">
+            Welcome Back!
+          </h1>
+          <p className="text-base-content/60 mt-2">
+            Sign in to continue to PetPaw
+          </p>
+        </div>
+
+        <div className="card bg-base-100 shadow-xl border border-base-200">
+          <div className="card-body p-6 sm:p-8">
+            {error && (
+              <div className="alert alert-error mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="stroke-current shrink-0 h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span className="text-sm">{error}</span>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={googleSignin}
+              className="btn btn-outline w-full gap-3 hover:bg-base-200"
+            >
+              <FcGoogle className="text-xl" />
+              Continue with Google
+            </button>
+
+            <div className="divider text-base-content/50 text-sm my-6">
+              or sign in with email
+            </div>
+
+            <form onSubmit={handleSubit} className="space-y-4">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-medium">Email</span>
+                </label>
                 <input
                   onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   type="email"
-                  className="input"
-                  placeholder="Email"
+                  className="input input-bordered w-full"
+                  placeholder="Enter your email"
+                  required
                 />
-                <label className="label">Password</label>
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-medium">Password</span>
+                </label>
                 <input
                   name="password"
                   type="password"
-                  className="input"
-                  placeholder="Password"
+                  className="input input-bordered w-full"
+                  placeholder="Enter your password"
+                  required
                 />
-                <div>
-                  <button onClick={handleForget} className="link link-hover">
+                <label className="label">
+                  <button
+                    type="button"
+                    onClick={handleForget}
+                    className="label-text-alt link link-primary"
+                  >
                     Forgot password?
                   </button>
-                </div>
+                </label>
+              </div>
 
-                <button onClick={googleSignin} className="btn">
-                  <FcGoogle />
-                </button>
+              <button
+                type="submit"
+                className="btn btn-primary w-full mt-2"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="loading loading-spinner loading-sm"></span>
+                ) : (
+                  "Sign In"
+                )}
+              </button>
+            </form>
 
-                <div>
-                  <span>Don't have an account? </span>
-                  <Link to={"/signup"}>Register</Link>
-                </div>
-                <button className="btn btn-neutral mt-4">Login</button>
-              </form>
-            </div>
+            <p className="text-center text-sm text-base-content/70 mt-6">
+              Don't have an account?{" "}
+              <Link to="/signup" className="link link-primary font-semibold">
+                Create account
+              </Link>
+            </p>
           </div>
         </div>
       </div>

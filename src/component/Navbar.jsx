@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { signOut } from "firebase/auth";
 import auth from "../firebase/firebase.config";
@@ -11,75 +11,118 @@ const Navbar = () => {
     signOut(auth);
   };
 
-  return (
-    <div className="navbar bg-base-100 shadow-sm relative z-50">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/services">Services</Link>
-            </li>
-            <li>
-              <Link>My Profile</Link>
-            </li>
-          </ul>
-        </div>
-        <Link to="/" className="btn btn-ghost text-xl">
-          PetPaw
-        </Link>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/services">Services</Link>
-          </li>
+  const navLinkClass = ({ isActive }) =>
+    `px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+      isActive ? "bg-primary text-primary-content" : "hover:bg-base-200"
+    }`;
 
-          <li>
-            <Link to={"/profile"}>My Profile</Link>
-          </li>
-        </ul>
+  return (
+    <nav className="bg-base-100/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-base-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center gap-2">
+            <div className="dropdown lg:hidden">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-xl z-50 mt-3 w-52 p-3 shadow-lg border border-base-200"
+              >
+                <li>
+                  <NavLink to="/" className={navLinkClass}>
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/services" className={navLinkClass}>
+                    Services
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/profile" className={navLinkClass}>
+                    My Profile
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+
+            <Link to="/" className="flex items-center gap-2 group">
+              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+                <span className="text-xl">🐾</span>
+              </div>
+              <span className="text-xl font-bold text-base-content">
+                Pet<span className="text-primary">Paw</span>
+              </span>
+            </Link>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-1">
+            <NavLink to="/" className={navLinkClass}>
+              Home
+            </NavLink>
+            <NavLink to="/services" className={navLinkClass}>
+              Services
+            </NavLink>
+            <NavLink to="/profile" className={navLinkClass}>
+              My Profile
+            </NavLink>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {user ? (
+              <div className="flex items-center gap-3">
+                <div className="hidden sm:flex items-center gap-2">
+                  <div className="avatar">
+                    <div className="w-9 h-9 rounded-full ring-2 ring-primary ring-offset-2 ring-offset-base-100">
+                      <img
+                        src={user.photoURL || "https://i.pravatar.cc/150?img=3"}
+                        alt={user.displayName || "User"}
+                      />
+                    </div>
+                  </div>
+                  <span className="text-sm font-medium hidden md:block">
+                    {user.displayName?.split(" ")[0] || "User"}
+                  </span>
+                </div>
+                <button
+                  onClick={handleSignOut}
+                  className="btn btn-outline btn-error btn-sm"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link to="/login" className="btn btn-ghost btn-sm">
+                  Login
+                </Link>
+                <Link to="/signup" className="btn btn-primary btn-sm">
+                  Sign Up
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-      {user && (
-        <div className="navbar-end">
-          <button onClick={handleSignOut} className="btn">
-            Logout
-          </button>
-        </div>
-      )}
-      {!user && (
-        <div className="navbar-end">
-          <Link to={"/login"} className="btn">
-            Login
-          </Link>
-        </div>
-      )}
-    </div>
+    </nav>
   );
 };
 

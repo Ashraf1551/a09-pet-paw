@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "../component/Slider";
 import PopularSection from "../component/PopularSection";
 import Expert from "../component/Expert";
+import PetCare from "../component/PetCare";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Slider></Slider>
       <PopularSection></PopularSection>
       <Expert></Expert>
+      <PetCare></PetCare>
     </div>
   );
 };

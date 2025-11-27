@@ -3,85 +3,98 @@ import React from "react";
 const Expert = () => {
   const services = [
     {
-      serviceId: 6,
-      serviceName: "Cold Weather Nutrition Plan",
-      providerName: "Pet Dietetics Pro",
-      providerEmail: "nutrition@petdietetics.com",
-      price: 55,
-      rating: 4.8,
-      slotsAvailable: 4,
-      description:
-        "Customized diet plans to adjust calorie intake for pets who are less active indoors or burn more energy staying warm.",
+      serviceName: "Jessica",
+
+      description: "10years of Experience",
       image:
-        "https://images.unsplash.com/photo-1535295972055-1c762f4483e5?auto=format&fit=crop&w=600&q=80",
-      category: "Health",
+        "https://plus.unsplash.com/premium_photo-1663011290771-f1448413beb5?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
-      serviceId: 7,
-      serviceName: "Heated Luxury Boarding Suite",
-      providerName: "CozyStays Resort",
-      providerEmail: "book@cozystays.com",
-      price: 85,
-      rating: 4.9,
-      slotsAvailable: 3,
-      description:
-        "Overnight boarding in suites featuring heated floors and orthopedic bedding for the ultimate cozy winter night.",
+      serviceName: "Merina",
+      description: "10years of Experience",
       image:
-        "https://images.unsplash.com/photo-1535295972055-1c762f4483e5?auto=format&fit=crop&w=600&q=80",
-      category: "Boarding",
+        "https://plus.unsplash.com/premium_photo-1663011296454-e68f12e316e3?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
-      serviceId: 8,
-      serviceName: "Hydrating Hot Oil Coat Spa",
-      providerName: "Luxe Fur Salon",
-      providerEmail: "spa@luxefur.com",
-      price: 50,
-      rating: 4.7,
-      slotsAvailable: 7,
-      description:
-        "Deep conditioning hot oil treatment to combat static electricity and dry skin caused by indoor heating systems.",
+      serviceName: "Jorina",
+      description: "11years of Experience",
       image:
-        "https://images.unsplash.com/photo-1615109398623-88346a601842?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Grooming",
+        "https://plus.unsplash.com/premium_photo-1663011219208-418276022b35?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
 
   return (
-    <div className="mt-8 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32">
+    <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-32 bg-base-100">
       <div className="max-w-7xl mx-auto">
-        <h3 className="font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center">
-          Meet Our Expert Vets
-        </h3>
+        <div className="text-center mb-12 sm:mb-16">
+          <span className="inline-block px-4 py-2 bg-secondary/10 text-secondary rounded-full text-sm font-semibold mb-4">
+            🏥 Our Team
+          </span>
+          <h3 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+            Meet Our <span className="text-primary">Expert</span> Vets
+          </h3>
+          <p className="mt-4 text-base-content/70 text-base sm:text-lg max-w-2xl mx-auto">
+            Our certified veterinarians bring years of experience and compassion
+            to every consultation
+          </p>
+        </div>
 
-        <div className="mt-8 sm:mt-10 md:mt-12 flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8">
-          {services.slice(0, 3).map((service, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
             <div
               key={index}
-              className="card bg-base-100 w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-24px)] max-w-sm shadow-sm hover:shadow-lg transition-shadow"
+              className="group relative bg-base-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
             >
-              <figure>
+              <div className="relative overflow-hidden">
                 <img
-                  className="w-full h-[200px] sm:h-[220px] md:h-[250px] lg:h-[280px] xl:h-[300px] object-cover"
+                  className="w-full h-[280px] sm:h-[300px] lg:h-[320px] object-cover transition-transform duration-700 group-hover:scale-105"
                   src={service?.image}
                   alt={service?.serviceName}
                 />
-              </figure>
-              <div className="card-body p-4 sm:p-5 md:p-6">
-                <h2 className="card-title text-base sm:text-lg md:text-xl">
-                  {service?.serviceName}
-                </h2>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
 
-                <div className="card-actions justify-end mt-2">
-                  <button className="btn btn-primary btn-sm sm:btn-md">
-                    View Details
-                  </button>
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-md">
+                  <span className="text-sm font-semibold text-primary">
+                    ⭐ {service?.description}
+                  </span>
                 </div>
+
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                    Dr. {service?.serviceName}
+                  </h2>
+                  <p className="text-white/80 text-sm">Senior Veterinarian</p>
+                </div>
+              </div>
+
+              <div className="p-5 bg-base-100">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="badge badge-primary badge-outline">
+                    Pet Specialist
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <span className="text-warning">★</span>
+                    <span className="font-semibold">4.9</span>
+                    <span className="text-base-content/50 text-sm">(120+)</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-2 h-2 bg-success rounded-full animate-pulse"></span>
+                  <span className="text-sm text-base-content/70">
+                    Available for appointments
+                  </span>
+                </div>
+
+                <button className="btn btn-primary w-full gap-2 hover:gap-3 transition-all">
+                  📅 Book Appointment
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

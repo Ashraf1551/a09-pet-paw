@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import toast from "react-hot-toast";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const ServiceDetails = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(AuthContext);
 
   const { id } = useParams();
 
@@ -19,6 +22,12 @@ const ServiceDetails = () => {
         setLoading(false);
       });
   }, []);
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+    toast.success("Service booked successfully! We'll contact you soon.");
+    e.target.reset();
+  };
 
   const findResult = services.find((service) => service.serviceId == id);
 
@@ -134,10 +143,48 @@ const ServiceDetails = () => {
               </div>
             </div>
 
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
+                <span className="w-8 h-0.5 bg-primary rounded"></span>
+                Book This Service
+              </h2>
+              <form
+                onSubmit={handleBooking}
+                className="bg-base-200 rounded-xl p-5 sm:p-6 space-y-4"
+              >
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-medium">Your Name</span>
+                  </label>
+                  <input
+                    name="name"
+                    type="text"
+                    defaultValue={user?.displayName || ""}
+                    className="input input-bordered w-full"
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-medium">Your Email</span>
+                  </label>
+                  <input
+                    name="email"
+                    type="email"
+                    defaultValue={user?.email || ""}
+                    className="input input-bordered w-full"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary w-full gap-2">
+                  📅 Book Now
+                </button>
+              </form>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="btn btn-primary btn-lg flex-1 gap-2">
-                📅 Book Now
-              </button>
               <button className="btn btn-outline btn-lg flex-1 gap-2">
                 💬 Contact Provider
               </button>

@@ -4,6 +4,8 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 import { FcGoogle } from "react-icons/fc";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { registerwithEmailPassword, setUser, handleGoogleSignin } =
@@ -14,6 +16,7 @@ const Register = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubit = (e) => {
     e.preventDefault();
@@ -30,16 +33,19 @@ const Register = () => {
 
     if (pass.length < 6) {
       setError("Password must be at least 6 characters long");
+      toast.error("Password must be at least 6 characters long");
       setLoading(false);
       return;
     }
     if (!uppercase.test(pass)) {
       setError("Password must contain at least one uppercase letter");
+      toast.error("Password must contain at least one uppercase letter");
       setLoading(false);
       return;
     }
     if (!lowercase.test(pass)) {
       setError("Password must contain at least one lowercase letter");
+      toast.error("Password must contain at least one lowercase letter");
       setLoading(false);
       return;
     }
@@ -52,18 +58,24 @@ const Register = () => {
         })
           .then(() => {
             setUser(userCredential.user);
+            toast.success("Account created successfully!");
             navigate(location.state ? location.state : "/profile");
           })
           .catch((error) => {
             setError("Failed to update profile. Please try again.");
+            toast.error("Failed to update profile. Please try again.");
             console.log(error);
           });
       })
       .catch((err) => {
         if (err.code === "auth/email-already-in-use") {
           setError("This email is already registered. Please login instead.");
+          toast.error(
+            "This email is already registered. Please login instead."
+          );
         } else {
           setError("Registration failed. Please try again.");
+          toast.error("Registration failed. Please try again.");
         }
         console.log(err);
       })
@@ -76,10 +88,12 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
+        toast.success("Signed up with Google successfully!");
         navigate(location.state ? location.state : "/profile");
       })
       .catch((err) => {
         setError("Google sign-up failed. Please try again.");
+        toast.error("Google sign-up failed. Please try again.");
         console.log(err);
       });
   };
@@ -179,13 +193,26 @@ const Register = () => {
                 <label className="label">
                   <span className="label-text font-medium">Password</span>
                 </label>
-                <input
-                  name="password"
-                  type="password"
-                  className="input input-bordered w-full"
-                  placeholder="Create a password"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    className="input input-bordered w-full pr-12"
+                    placeholder="Create a password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/60 hover:text-base-content transition-colors"
+                  >
+                    {showPassword ? (
+                      <FiEyeOff className="w-5 h-5" />
+                    ) : (
+                      <FiEye className="w-5 h-5" />
+                    )}
+                  </button>
+                </div>
                 <label className="label">
                   <span className="label-text-alt text-base-content/50">
                     Min 6 chars, 1 uppercase & 1 lowercase

@@ -34,6 +34,7 @@ WarmPaws helps pet owners find and book essential winter care services for their
 | `motion`          | Smooth animations (Framer Motion) |
 | `react-icons`     | Icon components                   |
 | `react-hot-toast` | Toast notifications               |
+| `aos`             | Animate on scroll effects         |
 | `tailwindcss`     | Utility-first CSS framework       |
 | `daisyui`         | Tailwind CSS component library    |
 

@@ -89,8 +89,8 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
             {user ? (
               <div className="flex items-center gap-3">
-                <div className="hidden sm:flex items-center gap-2">
-                  <div className="avatar">
+                <div className="hidden sm:flex items-center gap-2 relative group">
+                  <div className="avatar cursor-pointer">
                     <div className="w-9 h-9 rounded-full ring-2 ring-primary ring-offset-2 ring-offset-base-100">
                       <img
                         src={user.photoURL || "https://i.pravatar.cc/150?img=3"}
@@ -98,9 +98,9 @@ const Navbar = () => {
                       />
                     </div>
                   </div>
-                  <span className="text-sm font-medium hidden md:block">
-                    {user.displayName?.split(" ")[0] || "User"}
-                  </span>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 bg-base-300 text-base-content text-sm font-medium rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
+                    {user.displayName || "User"}
+                  </div>
                 </div>
                 <button
                   onClick={handleSignOut}

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import auth from "../firebase/firebase.config";
 import { updateProfile } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const { setUser, user } = useContext(AuthContext);
@@ -30,8 +31,10 @@ const Profile = () => {
         setUser({ ...user, photoURL: photoUrl, displayName: name });
         setSuccess(true);
         setIsOpen(false);
+        toast.success("Profile updated successfully!");
       })
       .catch((error) => {
+        toast.error("Failed to update profile. Please try again.");
         console.log(error);
       })
       .finally(() => setLoading(false));

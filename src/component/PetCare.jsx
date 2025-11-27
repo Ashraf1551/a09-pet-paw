@@ -39,7 +39,7 @@ const PetCare = () => {
   return (
     <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-12 sm:mb-16" data-aos="fade-up">
           <span className="inline-block px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">
             🐶 Pet Care Guide
           </span>
@@ -53,9 +53,11 @@ const PetCare = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {tipsData.map((card) => (
+          {tipsData.map((card, index) => (
             <div
               key={card.id}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
               className="group relative bg-white rounded-2xl border-2 border-gray-100 p-6 sm:p-8 flex flex-col hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-200 to-purple-200 opacity-30 rounded-bl-full -mr-8 -mt-8 group-hover:opacity-50 transition-opacity"></div>

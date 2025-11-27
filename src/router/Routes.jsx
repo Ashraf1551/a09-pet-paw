@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/forget/:email",
+        path: "/forget/:email?",
         element: <ForgetPass></ForgetPass>,
       },
     ],

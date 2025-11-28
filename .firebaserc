@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "a09-pet-paw"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }

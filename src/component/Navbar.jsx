@@ -3,12 +3,20 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { signOut } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);
 
   const handleSignOut = () => {
-    signOut(auth);
+    signOut(auth)
+      .then(() => {
+        toast.success("Logged out successfully!");
+      })
+      .catch((error) => {
+        toast.error("Failed to logout. Please try again.");
+        console.log(error);
+      });
   };
 
   const navLinkClass = ({ isActive }) =>
